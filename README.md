@@ -12,7 +12,7 @@ This project will allow users to participates in a Raffle using a web applicatio
 Scope: be able to publish a raffle and draw only one ticket in a meetup. The winner will have to be present otherwise another ticket will be drawn.
 
 ##### Web App
-- By a ticket by just registering an email address (no duplicates)
+- Buy a ticket by just registering an email address (no duplicates)
 - Only Raffle administrator
   - List the sold tickets owners
   - Draw a ticket
@@ -20,7 +20,7 @@ Scope: be able to publish a raffle and draw only one ticket in a meetup. The win
   - Mark raffle as finished (when owner is present and the prize is given)
 
 ##### Smart Contract
-- Register tickets. VAlidate unique email address.
+- Register tickets. Validate unique email address.
 - The Smart Contract will have an owner which will be able to:
   - Setup:
     - Raffle date.
