@@ -23,7 +23,7 @@ First, start the local testnet in a terminal window.
 $ testrpc
 ```
 
-Compile, deploy to the local testnet and test the Smart Contracts:
+Open another terminal window. Compile, deploy to the local testnet and test the Smart Contracts:
 ```
 $ truffle compile
 $ truffle migrate
