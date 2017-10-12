@@ -36,7 +36,12 @@ contract Raffle {
   }
 
   function currentWinner() constant returns (string fullname) {
+    require(drawnTickets.length > 0);
     return drawnTickets[drawnTickets.length - 1].fullname;
+  }
+
+  function size() constant returns (uint) {
+    return tickets.length;
   }
 
   function drawTicket() {
@@ -61,6 +66,9 @@ contract Raffle {
     return idx;
   }
 
+  // Generate a random number using the Linear Congruential Generator algorithm,
+  // using the block number as the seed of randomness.
+  // The magic numbers `a`, `c` and `m` where taken from the Wikipedia article.
   function random() constant returns (uint) {
     uint seed = block.number;
 
