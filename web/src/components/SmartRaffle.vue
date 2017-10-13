@@ -68,11 +68,19 @@ export default {
       .then((raffle) => {
         this.getOwnerName(raffle);
         this.getTickets(raffle);
+        raffle.TicketBought().watch((err) => this.handleTicketBought(err, raffle));
       }, this.handleDeployError)
   },
   methods: {
     handleDeployError(err) {
       window.alert('deploy error', err)
+    },
+    handleTicketBought(err, raffle) {
+      if (err) {
+        console.error(err)
+      } else {
+        this.getTickets(raffle);
+      }
     },
     getOwnerName(raffle) {
       return raffle.ownerName()

@@ -13,6 +13,8 @@ contract Raffle {
   Ticket[] public tickets;
   Ticket[] public drawnTickets;
 
+  event TicketBought();
+
   function Raffle(string _name) {
     owner = msg.sender;
     ownerName = _name;
@@ -32,6 +34,7 @@ contract Raffle {
     if (!exists) {
       Ticket memory newTicket = Ticket(fullname, email);
       tickets.push(newTicket);
+      TicketBought();
     }
   }
 
