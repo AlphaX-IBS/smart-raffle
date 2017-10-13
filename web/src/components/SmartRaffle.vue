@@ -1,25 +1,46 @@
 <template>
-  <div class="smart-raffle">
-    <form>
-      <label>
-        Name
-        <input type="text" v-model="fullname">
-      </label>
-      <label>
-        Email
-        <input type="email" v-model="email">
-      </label>
-      <button type="submit" @click.prevent="buyTicket(fullname, email)">Buy ticket</button>
-    </form>
-    <hr>
-    Tickets sold:
-    <ul>
-      <li v-for="ticket in tickets">{{ ticket[0] }} ({{ ticket[1] }})</li>
-    </ul>
-    <div>
-      Owner name: <strong>{{ ownerName }}</strong>
-    </div>
-  </div>
+  <v-app class="smart-raffle">
+    <v-container grid-list-md text-xs-center>
+      <v-layout row wrap>
+        <v-flex xs12>
+          <v-form v-model="valid">
+            <v-text-field
+              label="Name"
+              v-model="fullname"
+              :rules="[required('Name')]"
+              required>
+            </v-text-field>
+            <v-text-field
+              label="E-mail"
+              v-model="email"
+              :rules="[required('E-mail')]"
+              required>
+            </v-text-field>
+            <v-btn type="submit" @click.prevent="buyTicket(fullname, email)">Buy ticket</v-btn>
+          </v-form>
+
+          <br>
+
+          <v-card>
+            <v-toolbar color="purple" dark>
+              <v-toolbar-title>Tickets sold</v-toolbar-title>
+            </v-toolbar>
+            <v-list>
+              <template v-for="(ticket, index) in tickets">
+                <v-list-tile >
+                  <v-list-tile-content>
+                    <v-list-tile-title>{{ ticket[0] }}</v-list-tile-title>
+                    <v-list-tile-sub-title>{{ ticket[1] }}</v-list-tile-sub-title>
+                  </v-list-tile-content>
+                </v-list-tile>
+                <v-divider v-if="index + 1 < tickets.length" :key="ticket[1]"></v-divider>
+              </template>
+            </v-list>
+          </v-card>
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </v-app>
 </template>
 
 <script>
@@ -32,7 +53,9 @@ export default {
       ownerName: 'unknown',
       tickets: [],
       fullname: '',
-      email: ''
+      email: '',
+      required: label => x => !!x || `${label} is required`,
+      valid: false
     }
   },
   created () {
