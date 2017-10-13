@@ -1,5 +1,5 @@
-var Raffle = artifacts.require("./Raffle.sol");
+var Raffle = artifacts.require('./Raffle.sol');
 
 module.exports = function(deployer) {
-  deployer.deploy(Raffle, 'Franco Victorio');
+  deployer.deploy(Raffle, 'Altoros');
 };
