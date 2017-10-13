@@ -97,6 +97,8 @@ export default {
             .then(accounts => accounts[0])
             .then((account) => {
               raffle.buyTicket(fullname, email, { from: account })
+              this.fullname = ''
+              this.email = ''
             })
         });
     },
