@@ -3,7 +3,7 @@
     <v-container grid-list-md text-xs-center>
       <v-layout row wrap>
         <v-flex xs12>
-          <v-form v-model="valid">
+          <v-form v-model="valid" ref="form">
             <v-text-field
               label="Name"
               v-model="fullname"
@@ -99,8 +99,8 @@ export default {
             .then(accounts => accounts[0])
             .then((account) => {
               raffle.buyTicket(fullname, email, { from: account })
-              this.fullname = ''
-              this.email = ''
+
+              this.$refs.form.reset()
             })
         });
     },
