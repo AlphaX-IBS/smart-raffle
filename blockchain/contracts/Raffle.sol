@@ -1,5 +1,6 @@
 pragma solidity ^0.4.11;
 
+
 contract Raffle {
   struct Ticket {
     string fullname;

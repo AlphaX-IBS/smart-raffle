@@ -9,9 +9,11 @@
   "dependencies": {
     "dotenv": "^4.0.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "solium": "^1.0.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "solium --dir contracts"
   },
   "repository": {
     "type": "git",
