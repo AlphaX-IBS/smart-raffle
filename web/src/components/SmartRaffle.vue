@@ -73,6 +73,7 @@ export default {
         this.getOwnerAddress(raffle);
         this.getOwnerName(raffle);
         this.getTickets(raffle);
+        this.getDrawnTickets(raffle);
         raffle.TicketBought().watch((err) => this.handleTicketBought(err, raffle));
         raffle.TicketDrawn().watch((err) => this.handleTicketDrawn(err, raffle));
       }, this.handleDeployError)
