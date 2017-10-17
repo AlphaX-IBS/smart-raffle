@@ -23,22 +23,21 @@
           <br>
           <br>
 
-          <v-card>
-            <v-toolbar color="purple" dark>
-              <v-toolbar-title>Tickets sold</v-toolbar-title>
-            </v-toolbar>
-            <v-list>
-              <template v-for="(ticket, index) in tickets">
-                <v-list-tile >
-                  <v-list-tile-content>
-                    <v-list-tile-title>{{ ticket[0] }}</v-list-tile-title>
-                    <v-list-tile-sub-title>{{ ticket[1] }}</v-list-tile-sub-title>
-                  </v-list-tile-content>
-                </v-list-tile>
-                <v-divider v-if="index + 1 < tickets.length" :key="ticket[1]"></v-divider>
-              </template>
-            </v-list>
-          </v-card>
+          <TicketsList
+            title="Tickets sold"
+            :tickets="tickets"
+          >
+          </TicketsList>
+
+          <br>
+            <v-btn v-if="isOwnerConnected" type="button" @click.prevent="drawTicket()">Draw ticket</v-btn>
+          <br>
+
+          <TicketsList
+            title="Tickets drawn"
+            :tickets="drawnTickets"
+          >
+          </TicketsList>
         </v-flex>
       </v-layout>
     </v-container>
@@ -47,13 +46,17 @@
 
 <script>
 import RaffleContract from '@/contracts/raffle.js'
+import TicketsList from '@/components/TicketsList'
 
 export default {
   name: 'SmartRaffle',
   data () {
     return {
-      ownerName: 'unknown',
+      currentAddress: 'unknown current address',
+      owner: 'unknown owner address',
+      ownerName: 'unknown owner name',
       tickets: [],
+      drawnTickets: [],
       fullname: '',
       email: '',
       required: label => x => !!x || `${label} is required`,
@@ -66,9 +69,12 @@ export default {
     RaffleContract
       .deployed()
       .then((raffle) => {
+        this.getCurrentAddress(raffle);
+        this.getOwnerAddress(raffle);
         this.getOwnerName(raffle);
         this.getTickets(raffle);
         raffle.TicketBought().watch((err) => this.handleTicketBought(err, raffle));
+        raffle.TicketDrawn().watch((err) => this.handleTicketDrawn(err, raffle));
       }, this.handleDeployError)
   },
   methods: {
@@ -80,7 +86,26 @@ export default {
         console.error(err)
       } else {
         this.getTickets(raffle);
+        this.getDrawnTickets(raffle);
       }
+    },
+    handleTicketDrawn(err, raffle) {
+      if (err) {
+        console.error(err)
+      } else {
+        this.getTickets(raffle);
+        this.getDrawnTickets(raffle);
+      }
+    },
+    getCurrentAddress() {
+      return this.$web3.eth.getAccounts()
+        .then((accounts) => {
+          this.currentAddress = accounts[0];
+        })
+    },
+    getOwnerAddress(raffle) {
+      return raffle.owner()
+        .then(owner => this.owner = owner);
     },
     getOwnerName(raffle) {
       return raffle.ownerName()
@@ -99,6 +124,19 @@ export default {
         })
         .then(tickets => this.tickets = tickets);
     },
+    getDrawnTickets(raffle) {
+      return raffle
+        .drawnSize()
+        .then((sizeBigNumber) => {
+          const size = sizeBigNumber.toNumber()
+
+          const promises = [...Array(size)]
+            .map((x, i) => raffle.drawnTickets(i))
+
+          return Promise.all(promises)
+        })
+        .then(drawnTickets => this.drawnTickets = drawnTickets);
+    },
     buyTicket(fullname, email) {
       RaffleContract
         .deployed()
@@ -112,7 +150,24 @@ export default {
             })
         });
     },
-  }
+    drawTicket() {
+      RaffleContract
+        .deployed()
+        .then((raffle) => {
+          this.$web3.eth.getAccounts()
+            .then(accounts => accounts[0])
+            .then((account) => {
+              raffle.drawTicket({ from: account })
+            })
+        });
+    },
+  },
+  computed: {
+    isOwnerConnected() {
+      return this.owner.toLowerCase() === this.currentAddress.toLowerCase();
+    }
+  },
+  components: { TicketsList }
 }
 </script>
 

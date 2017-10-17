@@ -15,6 +15,7 @@ contract Raffle {
   Ticket[] public drawnTickets;
 
   event TicketBought();
+  event TicketDrawn();
 
   function Raffle(string _name) {
     owner = msg.sender;
@@ -48,12 +49,18 @@ contract Raffle {
     return tickets.length;
   }
 
+  function drawnSize() constant returns (uint) {
+    return drawnTickets.length;
+  }
+
   function drawTicket() {
     require(msg.sender == owner);
 
     uint idx = randomTicketIndex();
     drawnTickets.push(tickets[idx]);
     removeTicket(idx);
+
+    TicketDrawn();
   }
 
   function removeTicket(uint idx) {
