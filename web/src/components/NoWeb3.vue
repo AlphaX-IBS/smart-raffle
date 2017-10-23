@@ -5,13 +5,16 @@
         <v-flex xs12>
           <v-card>
             <v-card-text>
-              <div>Para poder usar esta aplicación, seguí las siguientes instrucciones:</div>
+              <p>Esta aplicación corre sobre Rinkeby, una blockchain de Ethereum usada para pruebas. Para poder usarla, seguí las siguientes instrucciones:</p>
 
               <ol>
                 <li>Instalá <a href="https://metamask.io/" target="_blank">MetaMask</a> en tu navegador</li>
                 <li>Seleccioná "Rinkeby Test Network" en la lista de redes (arriba a la izquierda)</li>
                 <li>Ingresá un password y la confirmación, y guardá en algún lugar la lista de doce palabras que va a generar tu cuenta (como estamos usando una blockchain de prueba, no es muy importante que esto esté en un lugar seguro)</li>
-                <li>Conseguí Ether para Rinkeby usando <a href="https://faucet.rinkeby.io/" target="_blank">este link</a></li>
+                <li>Después del paso anterior vas a tener una dirección creada en la blockchain de Rinkeby.
+                  Podés copiarla desde metamask clickeando en los tres puntos a la derecha de tu cuenta.
+                  Una vez que la tengas, podés conseguir Ether para Rinkeby usando <a href="https://faucet.rinkeby.io/" target="_blank">este link</a>.
+                  Si este paso te parece muy complicado, enviale tu dirección a alguno de los organizadores y pedile que te envíe un poco.</li>
                 <li>Recargá la página y anotate para el sorteo. Cuando clickees "Comprar ticket", MetaMask va a pedirte que confirmes la transacción.</li>
                 <li>Tu nombre va a aparecer en la lista en aproximadamente un minuto</li>
               </ol>

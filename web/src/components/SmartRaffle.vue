@@ -16,7 +16,7 @@
               :rules="[required('E-mail')]"
               required>
             </v-text-field>
-            <v-btn type="submit" @click.prevent="buyTicket(fullname, email)">Comprar ticket</v-btn>
+            <v-btn :disabled="!valid" type="submit" @click.prevent="buyTicket(fullname, email)">Comprar ticket</v-btn>
           </v-form>
 
           <br>
