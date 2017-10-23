@@ -1,14 +1,20 @@
 <template>
   <v-app class="no-web3">
-    <v-container grid-list-md text-xs-center>
+    <v-container grid-list-md>
       <v-layout row wrap>
         <v-flex xs12>
           <v-card>
             <v-card-text>
-              <strong>
-                Please use <a href="https://github.com/ethereum/mist" target="_blank">Mist</a>
-                or <a href="https://metamask.io/" target="_blank">MetaMask</a>
-              </strong>
+              <div>Para poder usar esta aplicación, seguí las siguientes instrucciones:</div>
+
+              <ol>
+                <li>Instalá <a href="https://metamask.io/" target="_blank">MetaMask</a> en tu navegador</li>
+                <li>Seleccioná "Rinkeby Test Network" en la lista de redes (arriba a la izquierda)</li>
+                <li>Ingresá un password y la confirmación, y guardá en algún lugar la lista de doce palabras que va a generar tu cuenta (como estamos usando una blockchain de prueba, no es muy importante que esto esté en un lugar seguro)</li>
+                <li>Conseguí Ether para Rinkeby usando <a href="https://faucet.rinkeby.io/" target="_blank">este link</a></li>
+                <li>Recargá la página y anotate para el sorteo. Cuando clickees "Comprar ticket", MetaMask va a pedirte que confirmes la transacción.</li>
+                <li>Tu nombre va a aparecer en la lista en aproximadamente un minuto</li>
+              </ol>
             </v-card-text>
           </v-card>
         </v-flex>
